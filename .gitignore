@@ -1,0 +1,22 @@
+# Build
+public/js/esm/
+public/js/system/
+public/js/vendor/
+public/js/*.js
+
+
+# osx
+.DS_Store
+._*
+
+
+# Editors
+.vscode/
+
+
+# NodeJS
+node_modules/
+npm-debug.log
+
+# Flow
+flow-typed/

@@ -1,0 +1,49 @@
+{
+  "name": "rollup-react-example",
+  "version": "1.0.0",
+  "description": "An example React application using rollup, with ES modules, dynamic imports, and Flow.",
+  "main": "public/index.html",
+  "scripts": {
+    "build": "rollup -c --prod --mini",
+    "watch": "rollup -c -w",
+    "serve": "serve"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/camille-hdl/rollup-react-example.git"
+  },
+  "keywords": [
+    "rollup"
+  ],
+  "author": "Camille Hodoul <camille.hodoul@gmail.com> (http://twitter.com/Eartz_HC)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/camille-hdl/rollup-react-example/issues"
+  },
+  "homepage": "https://github.com/camille-hdl/rollup-react-example#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.3.4",
+    "@babel/plugin-proposal-class-properties": "^7.3.4",
+    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
+    "@babel/plugin-transform-runtime": "^7.3.4",
+    "@babel/preset-env": "^7.3.4",
+    "@babel/preset-flow": "^7.0.0",
+    "@babel/preset-react": "^7.0.0",
+    "flow-bin": "^0.94.0",
+    "rollup": "^1.6.0",
+    "rollup-plugin-babel": "^4.3.2",
+    "rollup-plugin-clear": "^2.0.7",
+    "rollup-plugin-commonjs": "^9.2.1",
+    "rollup-plugin-node-builtins": "^2.1.2",
+    "rollup-plugin-node-globals": "^1.4.0",
+    "rollup-plugin-node-resolve": "^4.0.1",
+    "rollup-plugin-replace": "^2.1.0",
+    "rollup-plugin-terser": "^4.0.4",
+    "serve": "^10.1.2"
+  },
+  "dependencies": {
+    "react": "^16.8.4",
+    "react-dom": "^16.8.4"
+  }
+}
