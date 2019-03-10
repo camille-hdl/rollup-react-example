@@ -9,6 +9,11 @@
     <body>
         <script type="module">
             (function() {
+                if (navigator && navigator.serviceWorker) {
+                    window.addEventListener("load", () => {
+                        navigator.serviceWorker.register("/js/esm/sw.js", { scope: "/" });
+                    });
+                }
                 window.esDynamicImport = true;
                 // this will throw if dynamic import is not supported
                 import("/js/esm/index.js");
@@ -39,6 +44,11 @@
         <!-- No ES6 modules support : fallback to systemJS -->
         <script nomodule src="https://unpkg.com/systemjs@0.21.0/dist/system-production.js"></script>
         <script nomodule>
+            if (navigator && navigator.serviceWorker) {
+                window.addEventListener("load", () => {
+                    navigator.serviceWorker.register("/js/system/sw.js", { scope: "/" });
+                });
+            }
             System.import("/js/system/index.js");
         </script>
         <div id="app-container"></div>

@@ -4,7 +4,11 @@
   "description": "An example React application using rollup, with ES modules, dynamic imports, and Flow.",
   "main": "public/index.html",
   "scripts": {
-    "build": "rollup -c --prod --mini",
+    "build": "run-s buildrollup workbox",
+    "buildrollup": "rollup -c --prod --mini",
+    "workboxesm": "workbox injectManifest workbox-config-esm.js",
+    "workboxsystem": "workbox injectManifest workbox-config-system.js",
+    "workbox": "run-p workboxesm workboxsystem",
     "watch": "rollup -c -w",
     "serve": "serve"
   },
@@ -31,6 +35,7 @@
     "@babel/preset-flow": "^7.0.0",
     "@babel/preset-react": "^7.0.0",
     "flow-bin": "^0.94.0",
+    "npm-run-all": "^4.1.5",
     "rollup": "^1.6.0",
     "rollup-plugin-babel": "^4.3.2",
     "rollup-plugin-clear": "^2.0.7",
@@ -40,7 +45,8 @@
     "rollup-plugin-node-resolve": "^4.0.1",
     "rollup-plugin-replace": "^2.1.0",
     "rollup-plugin-terser": "^4.0.4",
-    "serve": "^10.1.2"
+    "serve": "^10.1.2",
+    "workbox-cli": "^4.1.0"
   },
   "dependencies": {
     "react": "^16.8.4",
