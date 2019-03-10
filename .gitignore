@@ -20,3 +20,6 @@ npm-debug.log
 
 # Flow
 flow-typed/
+
+# Cypress
+cypress/screenshots/

@@ -1,7 +1,7 @@
 //@flow
 import React, { lazy, Suspense, useState } from "react";
 import ReactDOM from "react-dom";
-
+import { helloName } from "./lib.js";
 const DynamicComponent = lazy(() => import("./dynamic-component.jsx"));
 
 /**
@@ -18,11 +18,12 @@ const App = () => {
                     <DynamicComponent />
                 </Suspense>
             ) : (
-                <button onClick={() => {
+                <button data-cy="btn-load-component" onClick={() => {
                     loadComponent(true);
                 }}>Load component</button>
             )
         }
+        <p>{helloName("World")}</p>
     </main>;
 }
 

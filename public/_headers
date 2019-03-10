@@ -1,0 +1,7 @@
+/js/esm/sw.js
+    Cache-Control: no-cache
+    Service-Worker-Allowed: /
+
+/js/system/sw.js
+    Cache-Control: no-cache
+    Service-Worker-Allowed: /
