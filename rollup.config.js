@@ -18,7 +18,7 @@ const getPluginsConfig = (prod, mini) => {
      * Clear previous builds
      */
     clear({
-      targets: [outputDir + "esm", outputDir + "system"],
+      targets: [`${outputDir}esm`, `${outputDir}system`],
       watch: true
     }),
     nodeResolve({
@@ -76,23 +76,8 @@ const getPluginsConfig = (prod, mini) => {
        */
       terser({
         compress: {
-          // screw_ie8: true,
-          // unused: false,
-          // dead_code: false,
-          // conditionals: false,
-          // warnings: false,
-          // defaults: true,
           unused: false,
           collapse_vars: false
-          // computed_props: false,
-          // hoist_props: false,
-          // reduce_vars: false,
-          // pure_getters: false,
-          // evaluate: false,
-          // dead_code: false,
-          // arrows: true,
-          // if_return: true,
-          // properties: false
         },
         output: {
           comments: !prod
@@ -114,12 +99,12 @@ export default CLIArgs => {
     input: ["./src/index.jsx"],
     output: [
       {
-        dir: outputDir + "system/",
+        dir: `${outputDir}system/`,
         format: "system"
       },
       {
-        dir: outputDir + "esm/",
-        format: "es"
+        dir: `${outputDir}esm/`,
+        format: "esm"
       }
     ],
     watch: {
