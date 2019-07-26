@@ -7,7 +7,7 @@
         <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no" />
     </head>
     <body>
-        <script type="module">
+        <script>
             (function() {
                 if (navigator && navigator.serviceWorker) {
                     window.addEventListener("load", () => {
@@ -19,37 +19,21 @@
                 import("/js/esm/index.js");
             })();
         </script>
-
-        <!-- browsers with ES6 modules but no dynamic import support -->
-        <script type="module">
-            // if the module script tag throws, window.esDynamicImport will be undefined
-            if (!window.esDynamicImport) {
-                // get the nomodule scripts and load (or inline) them
-                const noms = Array.prototype.slice
-                    .call(document.getElementsByTagName("script"), 0)
-                    .filter(x => x.hasAttribute("nomodule"));
-                function nextLoad(nom, s) {
-                    if (!(nom = noms.shift())) return;
-                    s = document.createElement("script");
-                    if (nom.src)
-                        (s.src = nom.src), s.addEventListener("load", nextLoad), s.addEventListener("error", nextLoad);
-                    else s.innerHTML = nom.innerHTML;
-                    document.head.appendChild(s);
-                    if (!nom.src) nextLoad();
-                }
-                nextLoad();
-            }
-        </script>
-
         <!-- No ES6 modules support : fallback to systemJS -->
-        <script nomodule src="https://unpkg.com/systemjs@0.21.0/dist/system-production.js"></script>
-        <script nomodule>
-            if (navigator && navigator.serviceWorker) {
-                window.addEventListener("load", () => {
-                    navigator.serviceWorker.register("/js/system/sw.js", { scope: "/" });
+        <script>
+            if (!window.esDynamicImport) {
+                if (navigator && navigator.serviceWorker) {
+                    window.addEventListener("load", () => {
+                        navigator.serviceWorker.register("/js/system/sw.js", { scope: "/" });
+                    });
+                }
+                const systemJsLoaderTag = document.createElement('script');
+                systemJsLoaderTag.src = 'https://unpkg.com/systemjs@4.1.0/dist/s.min.js';
+                systemJsLoaderTag.addEventListener('load', function () {
+                    System.import("/js/system/index.js");
                 });
+                document.head.appendChild(systemJsLoaderTag);
             }
-            System.import("/js/system/index.js");
         </script>
         <div id="app-container"></div>
     </body>
