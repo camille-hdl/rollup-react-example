@@ -45,7 +45,7 @@
     "flow-bin": "^0.119.1",
     "jest": "^25.1.0",
     "npm-run-all": "^4.1.5",
-    "rollup": "^1.31.1",
+    "rollup": "^1.32.0",
     "rollup-plugin-babel": "^4.3.3",
     "rollup-plugin-clear": "^2.0.7",
     "rollup-plugin-commonjs": "^10.1.0",
