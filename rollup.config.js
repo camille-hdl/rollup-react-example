@@ -12,19 +12,19 @@ import clear from "rollup-plugin-clear";
  */
 const outputDir = "./public/js/";
 
-const getPluginsConfig = (prod, mini) => {
+const getPluginsConfig = (prod, buildType, mini) => {
   const sortie = [
     /**
      * Clear previous builds
      */
     clear({
-      targets: [`${outputDir}esm`, `${outputDir}system`],
+      targets: [ buildType === "modern" ? `${outputDir}esm` : `${outputDir}system`],
       watch: true
     }),
     nodeResolve({
-      jsnext: true,
-      browser: true,
-      preferBuiltins: false
+      mainFields: ["module", "main", "browser"],
+      dedupe: ["react", "react-dom"],
+      preferBuiltins: true,
     }),
     replace({
       "process.env.NODE_ENV": JSON.stringify(
@@ -62,7 +62,11 @@ const getPluginsConfig = (prod, mini) => {
       }
     }),
     babel({
-      exclude: "node_modules/**"
+      /**
+       * Uncomment to ignore node_modules. This will accelerate yur build,
+       * but prevent you from using modern syntax in your dependencies
+       */
+      // exclude: "node_modules/**"
     }),
     globals(),
     builtins()
@@ -82,7 +86,9 @@ const getPluginsConfig = (prod, mini) => {
         output: {
           comments: !prod
         },
-        sourcemap: true
+        sourcemap: true,
+        ecma: buildType === "legacy" ? 5 : 8,
+        safari10: true,
       })
     );
   }
@@ -95,22 +101,23 @@ export default CLIArgs => {
    */
   const prod = !!CLIArgs.prod;
   const mini = !!CLIArgs.mini;
+  const buildType = typeof process.env.ROLLUP_BUILD_TYPE !== "undefined" ? process.env.ROLLUP_BUILD_TYPE : "modern";
   const bundle = {
     input: ["./src/index.jsx"],
-    output: [
+    output: buildType === "modern" ?
       {
         dir: `${outputDir}system/`,
         format: "system"
-      },
+      } :
       {
         dir: `${outputDir}esm/`,
         format: "esm"
       }
-    ],
+    ,
     watch: {
       include: ["./src/**"]
     }
   };
-  bundle.plugins = getPluginsConfig(prod, mini);
+  bundle.plugins = getPluginsConfig(prod, buildType, mini);
   return bundle;
 };

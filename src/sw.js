@@ -1,19 +1,22 @@
-importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
+importScripts("https://storage.googleapis.com/workbox-cdn/releases/5.1.2/workbox-sw.js");
 
-workbox.precaching.suppressWarnings();
+const {registerRoute} = workbox.routing;
+const {CacheFirst} = workbox.strategies;
+const {CacheableResponsePlugin} = workbox.cacheableResponse;
+const {ExpirationPlugin} = workbox.expiration;
 // the following line will be replaced by workbox-cli
-workbox.precaching.precacheAndRoute([]);
+workbox.precaching.precacheAndRoute(self.__WB_MANIFEST);
 
 // Cache unpkg (for systemjs)
-workbox.routing.registerRoute(
+registerRoute(
     /^https:\/\/unpkg\.com/,
-    workbox.strategies.cacheFirst({
+    new CacheFirst({
         cacheName: "unpkg",
         plugins: [
-            new workbox.cacheableResponse.Plugin({
+            new CacheableResponsePlugin({
                 statuses: [0, 200],
             }),
-            new workbox.expiration.Plugin({
+            new ExpirationPlugin({
                 maxAgeSeconds: 60 * 60 * 24 * 365,
                 maxEntries: 30,
             }),

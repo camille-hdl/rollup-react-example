@@ -20,10 +20,11 @@
             })();
         </script>
         <!-- No ES6 modules support : fallback to systemJS -->
-        <script>
+        <script nomodule src="https://polyfill.io/v3/polyfill.min.js?features=Promise"></script>
+        <script nomodule>
             if (!window.esDynamicImport) {
                 if (navigator && navigator.serviceWorker) {
-                    window.addEventListener("load", () => {
+                    window.addEventListener("load", function () {
                         navigator.serviceWorker.register("/js/system/sw.js", { scope: "/" });
                     });
                 }
