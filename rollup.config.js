@@ -86,7 +86,6 @@ const getPluginsConfig = (prod, buildType, mini) => {
         output: {
           comments: !prod
         },
-        sourcemap: true,
         ecma: buildType === "legacy" ? 5 : 8,
         safari10: true,
       })
