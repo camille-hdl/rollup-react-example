@@ -1,15 +1,23 @@
 language: node_js
 node_js:
   - "node"
-  - "lts/*"
 addons:
   apt:
     packages:
-      # Ubuntu 16+ does not install this dependency by default, so we need to install it ourselves
       - libgconf-2-4
 cache:
   npm: true
   directories:
     - ~/.cache
+#### UNCOMMENT THE BLOCK BELOW TO SEND COVERAGE DATA TO CODECLIMATE
+# before_script:
+#   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+#   - chmod +x ./cc-test-reporter
+#   - ./cc-test-reporter before-build
 install:
   - npm ci
+script:
+  - npm test
+#### UNCOMMENT THE BLOCK BELOW TO SEND COVERAGE DATA TO CODECLIMATE
+# after_script:
+#   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
