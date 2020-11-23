@@ -60,14 +60,14 @@ module.exports = function(api) {
                    * Modern build
                    */
                   presets: [presetModule, ...alwaysUsedPresets],
-                  plugins: [...alwaysUsedPlugins],
+                  plugins: [...alwaysUsedPlugins, "istanbul"],
               }
             : {
                   /**
                    * Legacy build
                    */
                   presets: [presetEnv, ...alwaysUsedPresets],
-                  plugins: [...alwaysUsedPlugins, ...legacyPlugins],
+                  plugins: [...alwaysUsedPlugins, ...legacyPlugins, "istanbul"],
               };
     return {
         env: {

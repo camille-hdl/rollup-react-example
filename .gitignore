@@ -21,5 +21,11 @@ npm-debug.log
 # Flow
 flow-typed/
 
-# Cypress
-cypress/screenshots/
+# Tests
+jest-coverage
+.nyc_output
+coverage
+cypress-coverage/
+cypress/videos
+cypress/screenshots
+reports

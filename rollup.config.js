@@ -1,8 +1,8 @@
 import babel from "rollup-plugin-babel";
-import commonjs from "rollup-plugin-commonjs";
-import nodeResolve from "rollup-plugin-node-resolve";
+import commonjs from "@rollup/plugin-commonjs";
+import nodeResolve from "@rollup/plugin-node-resolve";
+import replace from "@rollup/plugin-replace";
 import { terser } from "rollup-plugin-terser";
-import replace from "rollup-plugin-replace";
 import builtins from "rollup-plugin-node-builtins";
 import globals from "rollup-plugin-node-globals";
 import clear from "rollup-plugin-clear";
@@ -32,34 +32,7 @@ const getPluginsConfig = (prod, buildType, mini) => {
       )
     }),
     commonjs({
-      include: "node_modules/**",
-      /**
-       * When `import`ing named exports from CJS modules, (e.g. `import React, { PureComponent } from "react"`)
-       * Rollup sometimes doesn't guess the exports correctly,
-       * and you need to define them explicitly here.
-       */
-      namedExports: {
-        "./node_modules/react/index.js": [
-          "cloneElement",
-          "createElement",
-          "PropTypes",
-          "Children",
-          "Component",
-          "createFactory",
-          "PureComponent",
-          "lazy",
-          "Suspense",
-          "useState",
-          "useEffect"
-        ],
-        "./node_modules/react-dom/index.js": ["findDOMNode"],
-        "./node_modules/babel-runtime/node_modules/core-js/library/modules/es6.object.to-string.js": [
-          "default"
-        ],
-        "./node_modules/process/browser.js": ["nextTick"],
-        "./node_modules/events/events.js": ["EventEmitter"],
-        "./node_modules/react-is/index.js": ["isValidElementType"]
-      }
+      include: "node_modules/**"
     }),
     babel({
       /**
