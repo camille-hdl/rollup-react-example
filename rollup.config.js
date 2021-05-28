@@ -3,9 +3,8 @@ import commonjs from "@rollup/plugin-commonjs";
 import nodeResolve from "@rollup/plugin-node-resolve";
 import replace from "@rollup/plugin-replace";
 import { terser } from "rollup-plugin-terser";
-import builtins from "rollup-plugin-node-builtins";
-import globals from "rollup-plugin-node-globals";
 import clear from "rollup-plugin-clear";
+import nodePolyfills from 'rollup-plugin-polyfill-node';
 
 /**
  * Where our output will be written to disk
@@ -24,7 +23,7 @@ const getPluginsConfig = (prod, buildType, mini) => {
     nodeResolve({
       mainFields: ["module", "main", "browser"],
       dedupe: ["react", "react-dom"],
-      preferBuiltins: true,
+      preferBuiltins: false,
     }),
     replace({
       "process.env.NODE_ENV": JSON.stringify(
@@ -32,7 +31,7 @@ const getPluginsConfig = (prod, buildType, mini) => {
       )
     }),
     commonjs({
-      include: "node_modules/**"
+        include: "node_modules/**",
     }),
     babel({
       /**
@@ -41,8 +40,9 @@ const getPluginsConfig = (prod, buildType, mini) => {
        */
       // exclude: "node_modules/**"
     }),
-    globals(),
-    builtins()
+    nodePolyfills({
+        include: null,
+    }),
   ];
   if (mini) {
     sortie.push(
